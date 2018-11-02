@@ -6458,6 +6458,10 @@ vue-loader@^15.4.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-slider-component@^2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/vue-slider-component/-/vue-slider-component-2.8.0.tgz#957429acc15932e13db871470313d6ad3500567e"
+
 vue-style-loader@^4.1.0:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/vue-style-loader/-/vue-style-loader-4.1.2.tgz#dedf349806f25ceb4e64f3ad7c0a44fba735fcf8"
@@ -6479,6 +6483,10 @@ vue-template-es2015-compiler@^1.6.0:
 vue@^2.5.17:
   version "2.5.17"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
+
+vuex-undo-redo@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/vuex-undo-redo/-/vuex-undo-redo-1.1.4.tgz#daf9b3192b68e1715386d77ad1d607c36522a849"
 
 vuex@^3.0.1:
   version "3.0.1"

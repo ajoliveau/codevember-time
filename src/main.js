@@ -3,9 +3,12 @@ import App from './App.vue'
 import store from './store'
 import Buefy from 'buefy'
 import Bind from './mixins/Bind'
+
+// import UndoRedo from './plugins/UndoRedo'
 import 'buefy/dist/buefy.css'
 
 Vue.use(Buefy)
+
 Vue.mixin(Bind); 
 
 Vue.config.productionTip = false

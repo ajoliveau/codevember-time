@@ -1,10 +1,9 @@
 <template>
 	<div class="button-resource">
 		<div class="text">{{ name }} : {{ amount }}</div>
-		<div class="button" v-on:click="click" :disabled="onCooldown">
-			{{ this.label }}
-			<div class="cooldown" v-bind:style="{ width: width + '%' }">                
-			</div>
+		<div v-if="immutable" class="button" v-on:click="click">
+			{{ this.label }}			
+            Cost : {{ this.cost }}$
 		</div>
 	</div>
 </template>
@@ -23,46 +22,37 @@
 				type: String,
 				required: true
 			},
-			cooldownTime: {
-				type: String,
-				required: true
-			}
+            immutable: {
+                type: Boolean,
+                required: false
+            }
 		},
 		data() {
 			return {
-				durationRemaining: 0,
-				onCooldown: false,
-				width: 0
 			}
 		},
 		computed: {
 			...mapState({
-				name	(state) { return state.inventory[this.resource].name },
-				amount	(state) { return state.inventory[this.resource].amount },				
+				name	(state) { 
+                    return (this.immutable ?  state.immutableInventory[this.resource].name : state.inventory[this.resource].name) 
+                },
+				amount	(state) { 
+                    return (this.immutable ?  state.immutableInventory[this.resource].amount : state.inventory[this.resource].amount) 
+                },
+                cost  (state) { 
+                    return (this.immutable ?  state.immutableInventory[this.resource].cost : 0) 
+                }
 			})
 		},
 		methods: {
-			click: function() {
-				if (this.onCooldown)
-					return;
-
-				this.onCooldown = true;
-				this.durationRemaining = this.cooldownTime;
-				this.width = 100;
-				this.$bind(`Button${this.name}`, this.update);
-				// this.$emit('bind', `Button${this.name}`, this.update );
-				this.$store.dispatch('inventory/addResource', this.resource)								
+			click: function() {		
+                if (this.$store.state.inventory.money.amount < this.cost) {
+                    return;
+                }
+                const action = (this.immutable ? 'immutableInventory/addResource' : 'inventory/addResource');
+                this.$store.dispatch('inventory/removeResource', {resource:'money', count: this.cost})
+				this.$store.dispatch(action, this.resource)								
 			},
-			update: function( deltaTime ) {
-				this.durationRemaining -= deltaTime;
-				if (this.durationRemaining <= 0) {
-					this.$unbind(`Button${this.name}`);
-					this.onCooldown = false;
-					this.width = 0;
-				} else {					
-					this.width = this.durationRemaining / this.cooldownTime * 100;
-				}
-			}
 		}
 	}
 </script>
